@@ -1,3 +1,5 @@
+let workoutData = JSON.parse(localStorage.getItem("workoutData")) || {};
+
 const workouts = {
   push: [
     "Flat DB Bench Press",
@@ -45,27 +47,58 @@ function loadWorkout(type) {
 
   workouts[type].forEach((ex) => {
     container.innerHTML += `
-      <div class="exercise">
-        <h3>🏋️ ${ex}</h3>
-        <div id="${ex}-sets"></div>
-        <button class="add-set" onclick="addSet('${ex}')">➕ Add Set</button>
-      </div>
-    `;
+    <div class="exercise">
+      <h3>🏋️ ${ex}</h3>
+      <div id="${ex}-sets"></div>
+      <button class="add-set" onclick="addSet('${ex}')">➕ Add Set</button>
+    </div>
+  `;
+
+    if (workoutData[ex]) {
+      workoutData[ex].forEach((set, i) => {
+        const setDiv = document.getElementById(`${ex}-sets`);
+        const row = document.createElement("div");
+        row.className = "set-row";
+        row.innerHTML = `
+        <span>Set ${i + 1}</span>
+        <input type="number" value="${set.kg}" placeholder="Kg"
+          oninput="updateSet('${ex}', ${i}, 'kg', this.value)" />
+        <input type="number" value="${set.reps}" placeholder="Reps"
+          oninput="updateSet('${ex}', ${i}, 'reps', this.value)" />
+        <input value="${set.notes}" placeholder="Notes"
+          oninput="updateSet('${ex}', ${i}, 'notes', this.value)" />
+      `;
+        setDiv.appendChild(row);
+      });
+    }
   });
 }
 
 function addSet(exercise) {
   const setDiv = document.getElementById(`${exercise}-sets`);
-  const setCount = setDiv.children.length + 1;
+  const setIndex = setDiv.children.length;
 
-  setDiv.innerHTML += `
-    <div class="set-row">
-      <span>Set ${setCount}</span>
-      <input placeholder="Kg" type="number" oninput="saveData()" />
-<input placeholder="Reps" type="number" oninput="saveData()" />
-<input placeholder="Notes" oninput="saveData()" />
-    </div>
+  if (!workoutData[exercise]) {
+    workoutData[exercise] = [];
+  }
+
+  workoutData[exercise].push({ kg: "", reps: "", notes: "" });
+  saveWorkout();
+
+  const row = document.createElement("div");
+  row.className = "set-row";
+
+  row.innerHTML = `
+    <span>Set ${setIndex + 1}</span>
+    <input type="number" placeholder="Kg"
+      oninput="updateSet('${exercise}', ${setIndex}, 'kg', this.value)" />
+    <input type="number" placeholder="Reps"
+      oninput="updateSet('${exercise}', ${setIndex}, 'reps', this.value)" />
+    <input placeholder="Notes"
+      oninput="updateSet('${exercise}', ${setIndex}, 'notes', this.value)" />
   `;
+
+  setDiv.appendChild(row);
 }
 
 function loadPRs() {
@@ -205,3 +238,12 @@ function updateTimeline() {
 }
 
 updateTimeline();
+
+function updateSet(exercise, index, field, value) {
+  workoutData[exercise][index][field] = value;
+  saveWorkout();
+}
+
+function saveWorkout() {
+  localStorage.setItem("workoutData", JSON.stringify(workoutData));
+}
