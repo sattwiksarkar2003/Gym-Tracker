@@ -1,64 +1,173 @@
-body {
-  font-family: Arial, sans-serif;
-  background: #121212;
-  color: #fff;
-  padding: 20px;
+/* ===== RESET & BASE ===== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
+:root {
+  --bg: #0e0e11;
+  --card: #1a1b20;
+  --accent: #00e5ff;
+  --accent2: #7c4dff;
+  --text: #ffffff;
+  --muted: #9ca3af;
+  --success: #22c55e;
+}
+
+body {
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont;
+  background: radial-gradient(circle at top, #14161c, var(--bg));
+  color: var(--text);
+  min-height: 100vh;
+  padding: 16px;
+}
+
+/* ===== HEADER ===== */
 h1 {
   text-align: center;
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  margin-bottom: 20px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ===== TABS ===== */
+.tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 20px;
 }
 
 .tabs button {
-  margin: 5px;
-  padding: 10px;
-  background: #1e88e5;
-  border: none;
-  color: white;
+  background: linear-gradient(135deg, #1f2933, #111827);
+  color: var(--text);
+  border: 1px solid #2a2f3a;
+  padding: 10px 16px;
+  border-radius: 999px;
   cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.25s ease;
 }
 
-.exercise {
-  background: #1f1f1f;
-  padding: 15px;
-  margin: 15px 0;
-  border-radius: 8px;
+.tabs button:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  box-shadow: 0 0 12px rgba(0, 229, 255, 0.25);
 }
 
-.set-row {
-  display: flex;
-  gap: 10px;
-  margin-top: 8px;
+.tabs button:active {
+  transform: scale(0.95);
 }
 
-input {
-  width: 80px;
-  padding: 5px;
-}
-
-.add-set {
-  margin-top: 10px;
-  background: #43a047;
-  border: none;
-  padding: 5px;
-  color: white;
-  cursor: pointer;
-}
-
+/* ===== SECTIONS ===== */
 .section {
-  background: #1f1f1f;
-  padding: 15px;
-  margin: 15px 0;
-  border-radius: 8px;
+  background: linear-gradient(180deg, var(--card), #14161c);
+  padding: 16px;
+  margin: 16px auto;
+  border-radius: 16px;
+  max-width: 900px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
 
+/* ===== EXERCISE CARD ===== */
+.exercise {
+  background: linear-gradient(160deg, #1f2430, #151822);
+  border-radius: 16px;
+  padding: 16px;
+  margin: 16px auto;
+  max-width: 900px;
+  border: 1px solid #262b36;
+  transition: all 0.25s ease;
+}
+
+.exercise:hover {
+  border-color: var(--accent2);
+  box-shadow: 0 0 20px rgba(124, 77, 255, 0.15);
+}
+
+.exercise h3 {
+  font-size: 1.05rem;
+  margin-bottom: 10px;
+  color: var(--accent);
+}
+
+/* ===== SETS & ENTRIES ===== */
+.set-row,
 .entry-row {
-  display: flex;
-  gap: 10px;
+  display: grid;
+  grid-template-columns: auto 1fr 1fr 1fr;
+  gap: 8px;
   margin-top: 10px;
-  flex-wrap: wrap;
+  align-items: center;
 }
 
-.entry-row input {
-  width: 120px;
+.set-row span,
+.entry-row span {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+/* ===== INPUTS ===== */
+input {
+  background: #0f172a;
+  border: 1px solid #2a2f3a;
+  color: var(--text);
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+input::placeholder {
+  color: var(--muted);
+}
+
+input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 10px rgba(0, 229, 255, 0.25);
+}
+
+/* ===== ADD BUTTON ===== */
+.add-set {
+  margin-top: 14px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  border: none;
+  padding: 10px 14px;
+  border-radius: 12px;
+  color: #000;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.add-set:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 229, 255, 0.35);
+}
+
+.add-set:active {
+  transform: scale(0.96);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 600px) {
+  .set-row,
+  .entry-row {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  input {
+    width: 100%;
+  }
+
+  .exercise,
+  .section {
+    padding: 14px;
+    border-radius: 14px;
+  }
 }
