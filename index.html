@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Gym Progress Tracker</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>🏋️ Gym Progress Tracker</h1>
+
+    <div class="tabs">
+      <button onclick="loadWorkout('push')">Push</button>
+      <button onclick="loadWorkout('pull')">Pull</button>
+      <button onclick="loadWorkout('legs')">Legs</button>
+      <button onclick="loadWarmup()">Warm-up</button>
+      <button onclick="loadCardio()">Cardio</button>
+      <button onclick="loadPRs()">PRs</button>
+    </div>
+
+    <div id="workoutContainer"></div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
