@@ -6,18 +6,29 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <h1>🏋️ Gym Progress Tracker</h1>
+    <h1>COMEBACK MODE</h1>
+    <p class="subtitle">One day. One session. One rep.</p>
+
+    <div class="streak">🔥 Streak: <span id="streakCount">0</span> days</div>
+
+    <div class="timeline">Day <span id="dayCount">1</span> / 100</div>
 
     <div class="tabs">
-      <button onclick="loadWorkout('push')">Push</button>
-      <button onclick="loadWorkout('pull')">Pull</button>
-      <button onclick="loadWorkout('legs')">Legs</button>
-      <button onclick="loadWarmup()">Warm-up</button>
-      <button onclick="loadCardio()">Cardio</button>
-      <button onclick="loadPRs()">PRs</button>
+      <button onclick="loadWorkout('push')">💪 Push</button>
+      <button onclick="loadWorkout('pull')">🧲 Pull</button>
+      <button onclick="loadWorkout('legs')">🦵 Legs</button>
+      <button onclick="loadWarmup()">🔥 Warm-up</button>
+      <button onclick="loadCardio()">❤️ Cardio</button>
+      <button onclick="loadPRs()">🏆 PRs</button>
     </div>
 
+    <div class="motivation" id="motivationText"></div>
+
     <div id="workoutContainer"></div>
+
+    <button class="complete-btn" onclick="completeSession()">
+      ✅ Mark Session Complete
+    </button>
 
     <script src="script.js"></script>
   </body>
